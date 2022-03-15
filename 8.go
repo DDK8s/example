@@ -14,20 +14,40 @@ type singleList struct {
 }
 
 func main() {
+	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	worker(numbers)
+
+}
+
+func worker(numbers []int) []int{
 	var sls []int
-	numbers := []int{7, 2, 3, 4, 5, 6, 7, 8, 9}
+
 	singList := initList()
 	singList.maxValue = 3
 	var setOfStacks []*element
 
+
+	// Добавляет элементы из numbers в связанный список.
 	setOfStacks, sls = singList.Push(setOfStacks, singList, numbers, sls)
+
+	// Удаляет последний элемент в связанном списке (9).
 	singList.Pop(sls)
+
+	//Удаляет пятый элемент в связанном списке (5).
 	setOfStacks = singList.popAt(setOfStacks, sls)
 
-	singList.showAllElements(setOfStacks)
-	//fmt.Print(sls)
+	//singList.showAllElements(setOfStacks)
 
+	var result []int
+	for i := 0; i < len(setOfStacks); i++ {
+		current := setOfStacks[i]
+		for current != nil {
+			result = append(result, current.data)
+			current = current.next
+		}
+	}
 
+	return result
 }
 
 func initList() *singleList {
