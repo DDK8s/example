@@ -102,6 +102,7 @@ func (s *sinList) removeElement(i int) {
 	return
 }
 
+
 func (s *sinList) showList() error {
 	if s.head == nil {
 		return fmt.Errorf("sinList is empty")

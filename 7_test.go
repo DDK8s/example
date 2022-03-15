@@ -12,6 +12,7 @@ func TestAct(t *testing.T) {
 	// Act.
 	result := Act(numbers)
 
+
 	// Assert.
 	if result != expected {
 		t.Errorf("Incorrect result. Expected %d, got %d", expected, result)
