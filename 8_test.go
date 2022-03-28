@@ -1,24 +1,32 @@
 package main
 
 import (
+
 	"testing"
 )
 
-func TestPush(t *testing.T) {
+func TestTestingFor(t *testing.T) {
 	// Arrange.
-	expected := []int{1, 2, 3, 4, 6, 7, 8}
-	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	singleList := singleList{}
+	expected := []int{1, 2, 3}
+
 
 	// Act.
-	result := worker(numbers)
+	for v := range expected{
+		singleList.Push(expected[v])
+
+	}
+	result := singleList.TestingFor()
+
 
 	// Assert.
+	for i := range expected {
+		if expected[i] != result[i]{
 
-			if result[cap(expected)-1] != expected[cap(expected)-1] {
-				t.Errorf("Incorrect result. Expected %d, got %d", expected, result)
-				return
+			t.Errorf("Incorrect result. Expected %d, got %d", expected[i], result[i])
+			return
+
 			}
-
-
-
+		}
 }
+
