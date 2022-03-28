@@ -1,63 +1,61 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type element struct {
-	data int
+	data string
 	next *element
 }
 
-
-type sinList struct {
+type singleList struct {
 	len  int
 	head *element
 }
 
 func main() {
+	singleList := createLinkedList()
+	singleList.fill()
+	singleList.makeLoop()
+	singleList.findLoop()
 
-	numbers := [6]int{8, 9, 7, 1, 2, 3}
-	Act(numbers)
 }
 
-func Act(numbers [6]int) int {
-	k := 2
-	sinList := initiationList()
-	numbers = sinList.fillArray(numbers)
+func (s *singleList) findLoop() (string, bool){
+	current := s.head
+	m := make(map[*element]interface{})
 
-	p1 := sinList.head
-	p2 := sinList.head
-
-	for i := 0; i < k-1; i++ {
-		p2 = p2.next
+	for current.next != nil {
+		if _, ok := m[current.next]; ok {
+			loopPoint := current.next.data
+			//fmt.Println("Loop found", loopPoint)
+			return loopPoint, true
+		}
+		m[current.next] = nil
+		current = current.next
 	}
 
-	for p2.next != nil {
-		p1 = p1.next
-		p2 = p2.next
+	//fmt.Println("There is no loop")
+	return "Nothing", false
+
+}
+
+func (s *singleList )makeLoop() {
+	current := s.head
+	for current.next != nil {
+		current = current.next
 	}
-
-	// Вывести весь список.
-	/*err := sinList.showList()
-	if err != nil {
-		fmt.Println(err.Error())
-	}*/
-
-	return p1.data
+	current.next = s.head.next.next
 }
 
-func initiationList() *sinList {
-	return &sinList{}
+func createLinkedList() *singleList {
+	singleList := &singleList{}
+	return singleList
 }
 
-func (s *sinList) fillArray(numbers [6]int) [6]int {
+func (s *singleList) Push (data string) {
 
-	for _, v := range numbers {
-		s.addInEnd(v)
-	}
-	return numbers
-}
-
-func (s *sinList) addInEnd(data int) {
 	element := &element{
 		data: data,
 	}
@@ -71,42 +69,23 @@ func (s *sinList) addInEnd(data int) {
 		current.next = element
 	}
 	s.len++
+
 }
 
-func (s *sinList) addInFront(data int) {
-	element := &element{
-		data: data,
+func (s *singleList) fill() [6]string{
+	words := [6]string{"A", "B", "C", "D", "E"}
+	for i := range words {
+		s.Push(words[i])
 	}
+	return words
+}
+
+
+func (s *singleList) showAllElements() error {
 	if s.head == nil {
-		s.head = element
-	} else {
-		element.next = s.head
-		s.head = element
+		return fmt.Errorf("list is empty")
 	}
-	s.len++
-	return
-}
 
-// Удаляет элемент i из списка.
-func (s *sinList) removeElement(i int) {
-
-	current := s.head
-	j := 0
-	for j < i-1 {
-		j++
-		current = current.next
-	}
-	remove := current.next
-	current.next = remove.next
-	s.len--
-	return
-}
-
-
-func (s *sinList) showList() error {
-	if s.head == nil {
-		return fmt.Errorf("sinList is empty")
-	}
 	current := s.head
 	for current != nil {
 		fmt.Println(current.data)

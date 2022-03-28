@@ -6,16 +6,20 @@ import (
 
 func TestAct(t *testing.T) {
 	// Arrange.
-	numbers := [6]int{8, 9, 7, 1, 2, 3}
-	expected := 2
+	singleList := singleList{}
+	var ok bool
+	expected := "C"
+	var result interface{}
+
 
 	// Act.
-	result := Act(numbers)
-
+	singleList.fill()
+	singleList.makeLoop()
+	result, ok = singleList.findLoop()
 
 	// Assert.
-	if result != expected {
-		t.Errorf("Incorrect result. Expected %d, got %d", expected, result)
+	if !ok && expected != result {
+		t.Errorf("Incorrect result. Expected %s, got %s", expected, result)
 		return
 	}
 
