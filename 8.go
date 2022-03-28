@@ -110,12 +110,15 @@ func (s *singleList) Pop() {
 	current.next = nil
 }
 
-func (s *singleList) showAllElements() {
+func (s *singleList) showAllElements() error{
+	if s.head == nil {
+		return fmt.Errorf("list is empty")
+	}
 
 	current := s.head
 	for current != nil {
 		fmt.Println(current.data)
 		current = current.next
 	}
-
+	return nil
 }

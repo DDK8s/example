@@ -13,7 +13,6 @@ func TestTestingFor(t *testing.T) {
 	// Act.
 	for v := range expected{
 		singleList.Push(expected[v])
-
 	}
 	result := singleList.TestingFor()
 
